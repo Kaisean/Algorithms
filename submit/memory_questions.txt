@@ -1,0 +1,35 @@
+public class MysteryBox {					// 				   16  bytes
+    private final double x0, x1; 			// 8 + 8 		 = 16  bytes
+    private final long y0, y1, y2, y3; 		// 8 + 8 + 8 + 8 = 32  bytes
+    private final boolean z0, z1, z2, z3;	// 1 + 1 + 1 + 1 = 4   bytes
+    private final int[] a = new int[232];	// reference array 8   bytes
+											// 4(232) + 24   = 952 bytes
+    ...										// padding		 = 4   bytes
+}											// total		 = 1032   bytes
+
+public class MysteryBox {							//				      16 bytes
+    private final long x0, x1, x2, x3;				// 8 + 8 + 8 + 8 =    32 bytes
+    private final double y0, y1;					// 8 + 8		 =    16 bytes
+    private final int z0;							// 4			 =     4 bytes
+    private final boolean[] a = new boolean[160];	// reference array =   8 bytes
+													// 1(160) + 24	 =   184 bytes
+    ...												// padding		 =	   4 bytes
+}													// total		 =	 264 bytes
+
+public class MysteryBox {							//				      16 bytes
+    private final long x0;							// 8			 =	   8 bytes
+    private final int y0, y1;						// 4 + 4		 =	   8 bytes
+    private final boolean z0, z1, z2;				// 1 + 1 + 1	 =	   3 bytes
+    private final double[] a = new double[248];		// reference array =   8 bytes
+													// 8(248) + 24	 =	2008 bytes
+    ...												// padding		 =	   5 bytes
+}													// total		 =	2056 bytes
+
+// Item = Long (24 bytes)
+public class GenericMysteryBox<Item> {		//					 16  	   bytes
+	private int N;							// 	   				 4	 	   bytes
+	private Item[] items;					// reference array = 8   	   bytes
+	...										// array of Longs  = 8*N + 24  bytes
+											// Long objects	   = 24*N 	   bytes
+											// padding		   = 4		   bytes
+}											// total		   = 32*N + 56 bytes
