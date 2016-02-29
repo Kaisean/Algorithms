@@ -10,17 +10,16 @@ import java.util.List;
 public class FastCollinearPoints {
     private List<LineSegment> segments = new ArrayList<>();
 
-    private Comparator<Point> pointComparator = new Comparator<Point>() {
-        @Override
-        public int compare(Point o1, Point o2) {
-            if (o1.compareTo(o2) == 0) throw new IllegalArgumentException();
-            return o1.compareTo(o2);
-        }
-    };
-
     public FastCollinearPoints(Point[] points) {
         if (points == null || Arrays.asList(points).contains(null)) throw new NullPointerException();
         Point[] copy = points.clone();
+        Comparator<Point> pointComparator = new Comparator<Point>() {
+            @Override
+            public int compare(Point o1, Point o2) {
+                if (o1.compareTo(o2) == 0) throw new IllegalArgumentException();
+                return o1.compareTo(o2);
+            }
+        };
         Arrays.sort(copy, pointComparator);
 
         for (int i = 0; i < copy.length - 3; i++) {

@@ -10,17 +10,16 @@ import java.util.List;
 public class BruteCollinearPoints {
     private List<LineSegment> segments = new ArrayList<>();
 
-    private Comparator<Point> pointComparator = new Comparator<Point>() {
-        @Override
-        public int compare(Point o1, Point o2) {
-            if (o1.compareTo(o2) == 0) throw new IllegalArgumentException();
-            return o1.compareTo(o2);
-        }
-    };
-
     public BruteCollinearPoints(Point[] points) {
         if (points == null || Arrays.asList(points).contains(null)) throw new NullPointerException();
         Point[] copy = points.clone();
+        Comparator<Point> pointComparator = new Comparator<Point>() {
+            @Override
+            public int compare(Point o1, Point o2) {
+                if (o1.compareTo(o2) == 0) throw new IllegalArgumentException();
+                return o1.compareTo(o2);
+            }
+        };
         Arrays.sort(copy, pointComparator);
         for (int i = 0; i < copy.length; i++) {
             for (int j = i + 1; j < copy.length; j++) {
