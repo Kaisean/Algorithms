@@ -2,9 +2,7 @@ package practice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class BinarySearchTree {
     public Node root;
@@ -61,10 +59,31 @@ public class BinarySearchTree {
     }
 
     public void levelOrder(Node x) {
-        if(x==null) return;
+        /* Pre-order Traversal
+        if(x == null) return;
         System.out.print(x.key + " ");
         levelOrder(x.left);
         levelOrder(x.right);
+        */
+
+        if (x != null) {
+            levelOrder(Arrays.asList(root));
+        }
+        System.out.println();
+    }
+
+    private void levelOrder(List<Node> level) {
+        List<Node> nextLevel = new LinkedList<>();
+        for (Node node : level) {
+            System.out.print(node.key + " ");
+            if (node.left != null) {
+                nextLevel.add(node.left);
+            }
+            if (node.right != null) {
+                nextLevel.add(node.right);
+            }
+        }
+        if (!nextLevel.isEmpty()) levelOrder(nextLevel);
     }
 
     class Node {
@@ -105,6 +124,8 @@ public class BinarySearchTree {
         sc = new Scanner("11 56 68 50 70 96 32 18 17 23");
         bst = new BinarySearchTree();
         while (sc.hasNextInt()) bst.put(sc.nextInt(), "");
+        for (int k : bst.keys()) System.out.print(k + " ");
+        System.out.println();
         bst.levelOrder(bst.root);
         System.out.println();
         System.out.println("------------------------");
